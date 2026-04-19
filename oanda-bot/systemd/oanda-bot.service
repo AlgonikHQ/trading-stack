@@ -1,0 +1,33 @@
+[Unit]
+Description=AlgonikHQ OANDA Forex Spread Betting Bot
+Documentation=https://github.com/AlgonikHQ/trading-stack/tree/main/oanda-bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/oanda_bot
+
+# Load configuration from environment file
+# Copy config.example.env to .env and populate before starting
+EnvironmentFile=/root/oanda_bot/.env
+
+# Main bot process
+ExecStart=/usr/bin/python3 /root/oanda_bot/bot.py
+
+# Restart policy — restart on failure after 30s
+# Prevents tight restart loops on persistent errors
+Restart=on-failure
+RestartSec=30
+
+# Logging — captured by journalctl
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=oanda-bot
+
+# Give the process time to shut down cleanly (close positions etc.)
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target
