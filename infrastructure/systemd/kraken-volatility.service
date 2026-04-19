@@ -1,0 +1,26 @@
+[Unit]
+Description=AlgonikHQ Kraken Volatility Monitor
+Documentation=https://github.com/AlgonikHQ/trading-stack
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/kraken_bot
+
+EnvironmentFile=/root/kraken_bot/.env
+
+ExecStart=/usr/bin/python3 /root/kraken_bot/volatility.py
+
+Restart=on-failure
+RestartSec=30
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=kraken-volatility
+
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target
