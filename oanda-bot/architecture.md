@@ -28,6 +28,7 @@ Pre-trade filter stack (all must pass)
   ├── News blackout          → reject near high-impact events
   ├── Correlation guard      → reject if correlated pair already open
   ├── Daily loss limit       → reject if -3% daily drawdown hit
+  ├── Loss cooldown          → reject if pair lost within last 60 min
   └── Max open trades        → reject if 4 positions already open
         │
         ▼

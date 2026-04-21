@@ -1,134 +1,68 @@
-# OANDA Forex Bot
+# trading-stack
 
-> Automated spread betting bot trading 9 FX pairs on M15 candles via the OANDA v20 REST API. Live on a UK spread betting account — profits 100% tax-free under UK law.
-
----
-
-## Overview
-
-This bot runs continuously as a systemd service on a Hetzner Ubuntu VPS. It scans 9 major FX pairs every 15 minutes, scores potential entries using a multi-indicator framework, and manages positions through a staircase exit system with partial closes.
-
-**Current version:** v2.2  
-**Go-live:** April 2026  
-**Demo period:** ~6 weeks prior to live  
+> Transparent documentation of a live algo trading infrastructure — built in public by [@AlgonikHQ](https://x.com/AlgonikHQ).
 
 ---
 
-## Pairs Traded
+## What is this?
 
-```
-EUR/USD  GBP/USD  USD/JPY  USD/CHF
-AUD/USD  USD/CAD  EUR/GBP  GBP/JPY  NZD/USD
-```
+This repo documents the engineering behind a fully automated, multi-strategy trading stack running 24/5 on a Hetzner VPS. The goal is simple: **build toward financial independence at 45 through automated systems**, and do it in public.
 
-Timeframe: **M15** (15-minute candles)  
-Direction: **Bidirectional** (long & short)
+Every system here is live and trading real capital. This repo shows the architecture, infrastructure, and risk framework — not the strategy logic (that stays closed source).
 
 ---
 
-## Architecture
+## The Stack
 
-See [architecture.md](./architecture.md) for the full signal flow and risk framework.
-
-```
-┌─────────────────────────────────────────────────────┐
-│                   oanda-bot.service                  │
-│                  (systemd, Python 3)                 │
-└──────────────────────┬──────────────────────────────┘
-                       │ every 15 min
-           ┌───────────▼───────────┐
-           │    Candle Fetcher     │  OANDA v20 REST API
-           │  (M15 + D1 prices)   │  502 retry wrapper
-           └───────────┬───────────┘
-                       │
-           ┌───────────▼───────────┐
-           │    Entry Scoring      │  Multi-indicator
-           │    Engine             │  signal framework
-           └───────────┬───────────┘
-                       │
-           ┌───────────▼───────────┐
-           │    Filter Stack       │  Session / spread /
-           │                       │  correlation / daily limit
-           └───────────┬───────────┘
-                       │
-           ┌───────────▼───────────┐
-           │   Position Manager    │  Staircase exits
-           │                       │  Partial closes (3x)
-           └───────────┬───────────┘
-                       │
-           ┌───────────▼───────────┐
-           │   Telegram Alerts     │  Public channel
-           │   + Daily Summary     │  21:00 UTC daily
-           └───────────────────────┘
-```
+| System | Market | Status |
+|---|---|---|
+| [OANDA Forex Bot](./oanda-bot/) | FX — 9 pairs, M15 | 🟢 Live |
+| Solana Sniper | Solana memecoins | 🟢 Live |
+| Kraken DCA Bot | BTC / ETH / SOL | 🟢 Live |
+| Trading 212 ISA | ETF / Dividend pies | 🟢 Live |
 
 ---
 
-## Key Features
+## The Goal
 
-**Entry logic**
-- Multi-indicator scoring system (score threshold required to open)
-- Daily timeframe alignment filter (trend confirmation)
-- Bidirectional signal detection (long and short)
-- Correlation guard — prevents over-exposure to correlated USD pairs
+**FIRE at 45 (2032).** Target: ~£855,000.
 
-**Risk framework**
-- Fixed risk per trade (% of starting capital, not running balance)
-- SL floor per instrument (minimum pip distance enforced)
-- Maximum concurrent open trades: **4**
-- Daily loss limit: **3%** of capital
-- All positions closed Friday 20:00 UTC (no weekend gap exposure)
-- No new entries from 18:00 UTC Friday
+Four parallel automated income streams compound into a tax-efficient ISA flywheel:
+- Spread betting profits (tax-free under UK law) → ISA top-ups
+- ISA dividends eventually fund bot capital → salary removed from equation
+- Crypto staking + sniper gains → BTC accumulation
 
-**Session filters**
-- London open blackout: 08:00–08:15 UTC (avoids volatile open spike)
-- USD/JPY restricted to specific session windows
-- News event blackout support
-
-**Exit system**
-- Staircase with 3 partial closes (25% each)
-- Final 25% trails to capture extended moves
-- R-based TP levels (multiples of initial risk)
+This repo is the engineering layer of that plan. Follow along on X at [@AlgonikHQ](https://x.com/AlgonikHQ).
 
 ---
 
-## Telegram Alerts
+## What's Open vs Closed
 
-The bot posts to a public Telegram channel:
-- Trade open / partial close / full close alerts
-- Daily P&L summary at 21:00 UTC
-- 2-hour heartbeat confirming the service is alive
-- Patch notes on each restart (versioned)
-
----
-
-## Configuration
-
-See [config.example.env](./config.example.env) for the full configuration shape. All sensitive values (API keys, account IDs) are injected via environment variables — never hardcoded.
+| Open (this repo) | Closed (private) |
+|---|---|
+| System architecture | Entry/exit signal logic |
+| Risk framework & position sizing | Indicator parameters & thresholds |
+| Session & filter rules | Backtests & forward test data |
+| Infrastructure & deployment | Live P&L beyond public Telegram |
+| Telegram alert structure | Strategy source code |
 
 ---
 
-## Deployment
+## Infrastructure
 
-The bot runs as a `systemd` service. See [systemd/oanda-bot.service](./systemd/oanda-bot.service) for the sanitised unit file.
-
-```bash
-# Deploy / restart
-sudo systemctl restart oanda-bot.service
-
-# View live logs
-journalctl -u oanda-bot.service -f
-
-# Check status
-sudo systemctl status oanda-bot.service
-```
+- **VPS:** Hetzner Ubuntu 24.04 (dedicated)
+- **Process management:** systemd services
+- **Languages:** Python 3, Bash
+- **Alerts:** Telegram bot (public channels per system)
+- **Remote access:** Termius (mobile), SCP/PowerShell (Windows)
 
 ---
 
-## What's Not Here
+## Follow the Build
 
-The entry scoring logic, indicator parameters, thresholds, and backtesting data are not included in this repo. This folder documents the system's architecture and operational framework only.
+- X: [@AlgonikHQ](https://x.com/AlgonikHQ)
+- Telegram alerts: linked per system in each folder
 
 ---
 
-*Spread betting profits are tax-free for UK residents. This is not financial advice.*
+*This is not financial advice. All systems trade real capital at real risk. Document shared for educational and transparency purposes only.*
