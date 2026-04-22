@@ -1,0 +1,19 @@
+[Unit]
+Description=AlgonikHQ StatiqFC Football Stats Bot
+Documentation=https://github.com/AlgonikHQ/statiqfc
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/statiq/bot
+EnvironmentFile=/root/statiq/bot/config.env
+ExecStart=/usr/bin/python3 -u /root/statiq/bot/statiq_bot.py
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
