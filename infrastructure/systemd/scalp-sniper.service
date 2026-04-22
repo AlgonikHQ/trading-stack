@@ -1,5 +1,5 @@
 [Unit]
-Description=AlgonikHQ OSC Scalper Bot
+Description=AlgonikHQ OSC Bot
 Documentation=https://github.com/AlgonikHQ/trading-stack/tree/main/solana-sniper/osc-scalper
 After=network-online.target
 Wants=network-online.target
@@ -8,19 +8,14 @@ Wants=network-online.target
 Type=simple
 User=root
 WorkingDirectory=/root/solana_sniper
-
 EnvironmentFile=/root/solana_sniper/.env
-
-ExecStart=/usr/bin/python3 /root/solana_sniper/scalp_scanner.py
-
+ExecStart=/usr/bin/python3 -u /root/solana_sniper/scalp_scanner.py
 Restart=on-failure
 RestartSec=30
-
-StandardOutput=journal
+KillMode=mixed
+StandardOutput=null
 StandardError=journal
-SyslogIdentifier=scalp-sniper
-
-TimeoutStopSec=60
+Environment=PYTHONUNBUFFERED=1
 
 [Install]
 WantedBy=multi-user.target
