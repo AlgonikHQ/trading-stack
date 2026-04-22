@@ -1,6 +1,6 @@
 # Infrastructure
 
-> The full deployment stack behind AlgonikHQ — a single Hetzner Ubuntu VPS running five automated trading bots as systemd services, with Telegram as the monitoring layer.
+> The full deployment stack behind AlgonikHQ — a single Hetzner Ubuntu VPS running four automated trading bots as systemd services, with Telegram as the monitoring layer.
 
 ---
 
@@ -18,15 +18,9 @@ All bots run on a single dedicated VPS. Each bot is an independent systemd servi
 │  └─────────────────┘      └─────────────────┘           │
 │                                                          │
 │  ┌─────────────────┐      ┌─────────────────┐           │
-│  │ scalp-sniper     │      │ kraken-bot       │           │
+│  │ scalp-sniper     │      │ statiqfc         │           │
 │  │ .service         │      │ .service         │           │
 │  └─────────────────┘      └─────────────────┘           │
-│                                                          │
-│  ┌─────────────────┐                                     │
-│  │ kraken-          │                                     │
-│  │ volatility       │                                     │
-│  │ .service         │                                     │
-│  └─────────────────┘                                     │
 │                                                          │
 │  Telegram bot → public alert channels per service        │
 └─────────────────────────────────────────────────────────┘
@@ -34,17 +28,16 @@ All bots run on a single dedicated VPS. Each bot is an independent systemd servi
 
 ---
 
-## The Five Services
+## The Four Services
 
 | Service | Bot | Language |
-|---|---|---|
-| `oanda-bot.service` | OANDA Forex Bot | Python 3 |
-| `solana-sniper.service` | Solana Sniper | Python 3 |
-| `scalp-sniper.service` | OSC Scalper | Python 3 |
-| `kraken-bot.service` | Kraken DCA Bot | Python 3 |
-| `kraken-volatility.service` | Kraken Volatility Monitor | Python 3 |
+|---------|-----|----------|
+| oanda-bot.service | OANDA Forex Bot | Python 3 |
+| solana-sniper.service | Solana Sniper | Python 3 |
+| scalp-sniper.service | OSC Scalper | Python 3 |
+| statiqfc.service | StatiqFC Football Stats | Python 3 |
 
-Each service is configured to restart automatically on failure with a 30-second cooldown — if a bot crashes, it comes back on its own.
+Each service is configured to restart automatically on failure — if a bot crashes, it comes back on its own.
 
 ---
 
@@ -146,9 +139,8 @@ If the 2-hour heartbeat stops arriving, the service has crashed. Check `journalc
 
 ```
 /root/
-├── oanda_bot/
-│   ├── bot.py
-│   └── .env
+├── oanda_trading_bot.py
+├── oanda_bot.env
 ├── solana_sniper/
 │   ├── scanner.py
 │   ├── scalp_scanner.py
@@ -156,17 +148,18 @@ If the 2-hour heartbeat stops arriving, the service has crashed. Check `journalc
 │   ├── jupiter_swap.py
 │   ├── config.py
 │   └── .env
-└── kraken_bot/
-    ├── bot.py
-    └── .env
-
+├── statiq/
+│   └── bot/
+│       ├── statiq_bot.py
+│       ├── scanner.py
+│       ├── fetcher.py
+│       ├── database.py
+│       └── config.py (gitignored)
 /etc/systemd/system/
 ├── oanda-bot.service
 ├── solana-sniper.service
 ├── scalp-sniper.service
-├── kraken-bot.service
-└── kraken-volatility.service
-
+└── statiqfc.service
 /var/log/
 ├── solana_sniper.log
 └── scalp_sniper.log
