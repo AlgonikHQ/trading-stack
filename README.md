@@ -54,5 +54,3 @@ This repo is the engineering layer of that plan. Follow along on X at [@AlgonikH
 *This is not financial advice. All systems trade real capital at real risk. Documentation shared for educational and transparency purposes only.*
 
 ---
-
-*This is not financial advice. All systems trade real capital at real risk. Document shared for educational and transparency purposes only.*
