@@ -1,0 +1,154 @@
+[
+  {
+    "bot": "sniper",
+    "version": "v3.2",
+    "timestamp": "2026-04-19T09:44:46.524706+00:00",
+    "notes": [
+      "\u2022 Rug detection v3 \u2014 soft rug needs -20% price + proportional liq drop",
+      "\u2022 45s confirmation hold \u2014 no false exits on dip-then-pump tokens",
+      "\u2022 Staircase rebuilt \u2014 15/15/10/10/10% banks, max stake rides trail",
+      "\u2022 Catch-up sells \u2014 fast movers bank partials before trail activates",
+      "\u2022 Peak chase \u2014 h1 150-350% + m5 5%+ gets immediate entry attempt",
+      "\u2022 Daily summary consolidated \u2014 one master report at 08:00 BST",
+      "\u2022 Auto-changelog system live \u2014 no more manual patch notes"
+    ],
+    "broadcast": true
+  },
+  {
+    "bot": "volatility",
+    "version": "v5.0",
+    "timestamp": "2026-04-19T17:27:59.097200+00:00",
+    "notes": [
+      "\u2022 Volatility bot v5.0 \u2014 entry loosened, staircase rebuilt",
+      "\u2022 RSI 52\u219245 | dip -1.5\u2192-2.0% | SL -5\u2192-8% | time stop 24\u219248h",
+      "\u2022 TP levels +3/6/12/20/35/80% | sells 15/15/10/10/10%",
+      "\u2022 Trail locks 60/100% \u2014 realistic for crypto pairs"
+    ],
+    "broadcast": false
+  },
+  {
+    "bot": "volatility",
+    "version": "v5.0",
+    "timestamp": "2026-04-19T17:32:12.105084+00:00",
+    "notes": [
+      "\u2022 Volatility bot v5.0 \u2014 entry loosened, staircase rebuilt",
+      "\u2022 RSI 52\u219245 | dip -1.5\u2192-2.0% | SL -5\u2192-8% | time stop 24\u219248h",
+      "\u2022 TP levels +3/6/12/20/35/80% | sells 15/15/10/10/10%",
+      "\u2022 Trail locks 60/100% \u2014 realistic for crypto pairs"
+    ],
+    "broadcast": false
+  },
+  {
+    "bot": "volatility",
+    "version": "v5.0",
+    "timestamp": "2026-04-19T17:35:35.195480+00:00",
+    "notes": [
+      "\u2022 Volatility bot v5.0 \u2014 entry loosened, staircase rebuilt",
+      "\u2022 RSI 52\u219245 | dip -1.5\u2192-2.0% | SL -5\u2192-8% | time stop 24\u219248h",
+      "\u2022 TP levels +3/6/12/20/35/80% | sells 15/15/10/10/10%",
+      "\u2022 Trail locks 60/100% \u2014 realistic for crypto pairs"
+    ],
+    "broadcast": false
+  },
+  {
+    "bot": "volatility",
+    "version": "v5.0",
+    "timestamp": "2026-04-19T17:38:12.714724+00:00",
+    "notes": [
+      "\u2022 Volatility bot v5.0 \u2014 entry loosened, staircase rebuilt",
+      "\u2022 RSI 52\u219245 | dip -1.5\u2192-2.0% | SL -5\u2192-8% | time stop 24\u219248h",
+      "\u2022 TP levels +3/6/12/20/35/80% | sells 15/15/10/10/10%",
+      "\u2022 Trail locks 60/100% \u2014 realistic for crypto pairs"
+    ],
+    "broadcast": false
+  },
+  {
+    "bot": "volatility",
+    "version": "v5.0",
+    "timestamp": "2026-04-19T17:39:18.485099+00:00",
+    "notes": [
+      "\u2022 Volatility bot v5.0 \u2014 entry loosened, staircase rebuilt",
+      "\u2022 RSI 52\u219245 | dip -1.5\u2192-2.0% | SL -5\u2192-8% | time stop 24\u219248h",
+      "\u2022 TP levels +3/6/12/20/35/80% | sells 15/15/10/10/10%",
+      "\u2022 Trail locks 60/100% \u2014 realistic for crypto pairs"
+    ],
+    "broadcast": false
+  },
+  {
+    "bot": "volatility",
+    "version": "v5.0",
+    "timestamp": "2026-04-19T17:43:19.407896+00:00",
+    "notes": [
+      "\u2022 Volatility bot v5.0 \u2014 entry loosened, staircase rebuilt",
+      "\u2022 RSI 52\u219245 | dip -1.5\u2192-2.0% | SL -5\u2192-8% | time stop 24\u219248h",
+      "\u2022 TP levels +3/6/12/20/35/80% | sells 15/15/10/10/10%",
+      "\u2022 Trail locks 60/100% \u2014 realistic for crypto pairs"
+    ],
+    "broadcast": false
+  },
+  {
+    "bot": "volatility",
+    "version": "v5.0",
+    "timestamp": "2026-04-19T17:48:13.964038+00:00",
+    "notes": [
+      "\u2022 Volatility bot v5.0 \u2014 entry loosened, staircase rebuilt",
+      "\u2022 RSI 52\u219245 | dip -1.5\u2192-2.0% | SL -5\u2192-8% | time stop 24\u219248h",
+      "\u2022 TP levels +3/6/12/20/35/80% | sells 15/15/10/10/10%",
+      "\u2022 Trail locks 60/100% \u2014 realistic for crypto pairs"
+    ],
+    "broadcast": false
+  },
+  {
+    "bot": "volatility",
+    "version": "v5.0",
+    "timestamp": "2026-04-19T17:53:54.733272+00:00",
+    "notes": [
+      "\u2022 Volatility bot v5.0 \u2014 entry loosened, staircase rebuilt",
+      "\u2022 RSI 52\u219245 | dip -1.5\u2192-2.0% | SL -5\u2192-8% | time stop 24\u219248h",
+      "\u2022 TP levels +3/6/12/20/35/80% | sells 15/15/10/10/10%",
+      "\u2022 Trail locks 60/100% \u2014 realistic for crypto pairs"
+    ],
+    "broadcast": false
+  },
+  {
+    "bot": "volatility",
+    "version": "v5.0",
+    "timestamp": "2026-04-19T17:56:59.489874+00:00",
+    "notes": [
+      "\u2022 Volatility bot v5.0 \u2014 entry loosened, staircase rebuilt",
+      "\u2022 RSI 52\u219245 | dip -1.5\u2192-2.0% | SL -5\u2192-8% | time stop 24\u219248h",
+      "\u2022 TP levels +3/6/12/20/35/80% | sells 15/15/10/10/10%",
+      "\u2022 Trail locks 60/100% \u2014 realistic for crypto pairs"
+    ],
+    "broadcast": false
+  },
+  {
+    "bot": "volatility",
+    "version": "v5.0",
+    "timestamp": "2026-04-22T08:38:26.193451+00:00",
+    "notes": [
+      "\u2022 Volatility bot v5.0 \u2014 entry loosened, staircase rebuilt",
+      "\u2022 RSI 52\u219245 | dip -1.5\u2192-2.0% | SL -5\u2192-8% | time stop 24\u219248h",
+      "\u2022 TP levels +3/6/12/20/35/80% | sells 15/15/10/10/10%",
+      "\u2022 Trail locks 60/100% \u2014 realistic for crypto pairs"
+    ],
+    "broadcast": false
+  },
+  {
+    "bot": "oanda",
+    "version": "v2.6",
+    "timestamp": "2026-04-23T21:24:07.272837+00:00",
+    "notes": [
+      "\u2022 Ghost trade fix \u2014 sync_closed_trades() runs on startup before main loop",
+      "\u2022 Daily P&L state persisted to oanda_daily_state.json \u2014 survives restarts",
+      "\u2022 Weekly pair P&L persisted to oanda_weekly_state.json \u2014 survives restarts",
+      "\u2022 Daily counters (wins/trades) now reset correctly on new day",
+      "\u2022 Log rotation \u2014 50MB cap, 3 backups kept",
+      "\u2022 BCO_USD orphan meta entries cleaned",
+      "\u2022 VIX filter added \u2014 blocks new entries VIX>25, closes all VIX>35 (NY session only)",
+      "\u2022 GBP/USD session guard \u2014 blocked 00:00-07:00 UTC (Asian/Sydney)",
+      "\u2022 GBP/USD signal guard \u2014 requires 4/4 EMA score + ADX>30 to enter"
+    ],
+    "broadcast": true
+  }
+]

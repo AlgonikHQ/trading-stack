@@ -1,0 +1,47 @@
+# Secrets & credentials
+.env
+.env.save
+.secrets/
+.git-credentials
+
+# Strategy source code (closed source)
+oanda_trading_bot.py
+oanda_trading_bot_backup_*.py
+solana_sniper/scanner.py
+solana_sniper/scalp_scanner.py
+solana_sniper/filters.py
+solana_sniper/jupiter_swap.py
+solana_sniper/config.py
+kraken_volatility/*.py
+statiq/bot/*.py
+
+# State & runtime files
+oanda_trade_state.json
+oanda_trade_state.json.bak
+oanda_daily_state.json
+oanda_weekly_state.json
+oanda_daily_snapshot.json
+forex_performance.json
+forex_trade_meta.json
+forex_seen_trades.json
+forex_daily_summary.log
+forex_daily_trade_count.json
+forex_peak_balance.json
+forex_daily_summary.log
+osc_state.json
+osc_watchlist.json
+live_balance.json
+deployer_blacklist.json
+patch_notes_today.txt
+
+# Logs
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Misc
+.bash_history
+.lesshst

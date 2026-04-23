@@ -12,7 +12,7 @@ Every system here is live and trading real capital. This repo shows the architec
 
 | System | Market | Status |
 |--------|--------|--------|
-| **OANDA Forex Bot** | FX — 9 pairs, M15 | 🟢 Live |
+| **OANDA Forex Bot** | FX — 9 pairs, M15 | 📄 Paper (go-live Apr 2026) |
 | **Solana Sniper** | Solana memecoins | 🟢 Live |
 | **OSC Scalper** | Established memecoins | 🟢 Live |
 | **StatiqFC** | Football edge alerts | 🟢 Live |
