@@ -1,58 +1,64 @@
 # OANDA Forex Bot
 
-> Automated spread betting bot trading 9 FX pairs on M15 candles via the OANDA v20 REST API. Going live on a UK spread betting account end of April 2026 — profits 100% tax-free under UK law.
+> Automated spread betting bot trading 9 FX pairs on M15 candles via the OANDA v20 REST API. Paper trading with go-live targeted for May 2026 — profits 100% tax-free under UK law.
 
 ---
 
 ## Overview
 
-This bot runs continuously as a systemd service on a Hetzner Ubuntu VPS. It scans 9 major FX pairs every 15 minutes, scores potential entries using a multi-indicator framework, and manages positions through a staircase exit system with partial closes.
+This bot runs continuously as a systemd service on a Hetzner Ubuntu VPS. It scans 9 major FX pairs every 15 minutes, scores potential entries using a multi-indicator framework, and manages positions through a staircase exit system with partial closes and a trailing final leg.
 
 **Current version:** v2.6  
-**Status:** 📄 Paper trading — go-live end of April 2026  
-**Demo period:** 6 weeks prior to live  
+**Status:** 📄 Paper trading — go-live May 2026  
+**Account:** Spread betting (UK tax-free), OANDA Hub
 
 ---
 
 ## Pairs Traded
-EUR/USD  GBP/USD  USD/JPY  USD/CHF
+
+EUR/USD  GBP/USD  USD/JPY  USD/CHF  
 AUD/USD  USD/CAD  EUR/GBP  GBP/JPY  NZD/USD
-Timeframe: **M15** (15-minute candles)  
-Direction: **Bidirectional** (long & short)
+
+**Timeframe:** M15 (15-minute candles)  
+**Direction:** Bidirectional (long & short)
 
 ---
 
 ## Architecture
+
+```
 ┌─────────────────────────────────────────────────────┐
 │                   oanda-bot.service                  │
 │                  (systemd, Python 3)                 │
 └──────────────────────┬──────────────────────────────┘
-│ every 15 min
-┌───────────▼───────────┐
-│    Candle Fetcher     │  OANDA v20 REST API
-│  (M15 + D1 prices)   │  502 retry wrapper
-└───────────┬───────────┘
-│
-┌───────────▼───────────┐
-│    Entry Scoring      │  Multi-indicator
-│    Engine             │  signal framework
-└───────────┬───────────┘
-│
-┌───────────▼───────────┐
-│    Filter Stack       │  Session / spread /
-│                       │  correlation / VIX /
-│                       │  daily limit / pair guards
-└───────────┬───────────┘
-│
-┌───────────▼───────────┐
-│   Position Manager    │  Staircase exits
-│                       │  Partial closes (3x)
-└───────────┬───────────┘
-│
-┌───────────▼───────────┐
-│   Telegram Alerts     │  Public + private channels
-│   + Daily Summary     │  22:00 UTC daily
-└───────────────────────┘
+                       │ every 15 min
+               ┌───────▼───────┐
+               │ Candle Fetcher │  OANDA v20 REST API
+               │ (M15 + D1)    │  502 retry wrapper
+               └───────┬───────┘
+                       │
+               ┌───────▼───────┐
+               │ Entry Scoring  │  Multi-indicator
+               │ Engine         │  signal framework
+               └───────┬───────┘
+                       │
+               ┌───────▼───────┐
+               │ Filter Stack   │  Session / spread /
+               │                │  correlation / VIX /
+               │                │  daily limit / pair guards
+               └───────┬───────┘
+                       │
+               ┌───────▼───────┐
+               │ Position Mgr   │  R-based staircase
+               │                │  3x partial closes + trail
+               └───────┬───────┘
+                       │
+               ┌───────▼───────┐
+               │ Telegram Alerts│  Public + private channels
+               │ + Daily Summary│  22:00 UTC daily
+               └───────────────┘
+```
+
 ---
 
 ## Key Features
@@ -66,13 +72,19 @@ Direction: **Bidirectional** (long & short)
 - M5 confirmation required before entry fires
 
 **Risk framework**
-- Fixed risk per trade (% of starting capital, not running balance)
+- R-based position sizing (risk per trade as % of capital)
 - SL floor per instrument (minimum pip distance enforced)
 - Maximum concurrent open trades: **3**
 - Daily loss limit: **3%** of capital
 - Per-pair loss cooldown: 60 minutes after any loss on that instrument
 - All positions closed Friday 20:00 UTC (no weekend gap exposure)
 - No new entries from 18:00 UTC Friday
+
+**Exit system — R-based staircase**
+- TP1: 0.75R → 25% close
+- TP2: 1.5R → 25% close
+- TP3: 2.5R → 25% close
+- Final 25% trails to capture extended moves
 
 **Session filters**
 - London open blackout: 08:00–08:15 UTC
@@ -84,26 +96,31 @@ Direction: **Bidirectional** (long & short)
 - JPY pairs restricted to London/NY sessions only
 - BOJ decision blackout on USD/JPY
 
-**Volatility filter (v2.6)**
+**Volatility filter**
 - VIX fetched every 15 mins during NY session (14:30–21:00 UTC)
 - VIX > 25 — new entries blocked
 - VIX > 35 — all open positions closed immediately
 
-**State persistence (v2.6)**
+**State persistence**
 - Daily P&L, win count, trade count survive bot restarts
 - Weekly pair P&L survives bot restarts
 - Trade state reconciled against OANDA on every startup
 
-**Exit system**
-- Staircase with 3 partial closes (25% each at TP1/TP2/TP3)
-- Final 25% trails to capture extended moves
-- R-based TP levels (multiples of initial risk)
+---
+
+## Go-Live Checklist
+
+- [ ] Switch API URL to `api-fxtrade.oanda.com`
+- [ ] Generate live API key from OANDA Hub
+- [ ] Fund spread betting account (£250 deposit)
+- [ ] Update account ID to spread betting account
+- [ ] Final paper period review pass
 
 ---
 
 ## Telegram Alerts
 
-The bot posts to a public Telegram channel (@OandaForex_Sigs):
+The bot posts to a public Telegram channel:
 - Trade open / partial close / full close alerts
 - Daily P&L summary at 22:00 UTC
 - Weekly P&L report every Friday 20:00 UTC
@@ -113,7 +130,7 @@ The bot posts to a public Telegram channel (@OandaForex_Sigs):
 
 ## Configuration
 
-See [config.example.env](./config.example.env) for the full configuration shape. All sensitive values are injected via environment variables — never hardcoded.
+See [config.example.env](./config.example.env) for the full configuration shape. All sensitive values injected via environment variables — never hardcoded.
 
 ---
 
@@ -124,12 +141,6 @@ sudo systemctl restart oanda-bot.service
 journalctl -u oanda-bot.service -f
 sudo systemctl status oanda-bot.service
 ```
-
----
-
-## Changelog
-
-See [changelog.json](../changelog.json) for full version history.
 
 ---
 

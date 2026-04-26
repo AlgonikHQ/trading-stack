@@ -4,7 +4,7 @@ Transparent documentation of a live algo trading infrastructure — built in pub
 
 ## What is this?
 
-This repo documents the engineering behind a fully automated, multi-strategy trading stack running 24/5 on a Hetzner VPS. The goal is simple: build toward financial independence at 45 through automated systems, and do it in public.
+This repo documents the engineering behind a fully automated, multi-strategy trading stack running 24/7 on a Hetzner VPS. The goal is simple: build toward financial independence at 45 through automated systems, and do it in public.
 
 Every system here is live and trading real capital. This repo shows the architecture, infrastructure, and risk framework — not the strategy logic (that stays closed source).
 
@@ -12,7 +12,7 @@ Every system here is live and trading real capital. This repo shows the architec
 
 | System | Market | Status |
 |--------|--------|--------|
-| **OANDA Forex Bot** | FX — 9 pairs, M15 | 📄 Paper (go-live Apr 2026) |
+| **OANDA Forex Bot** | FX — 9 pairs, M15 | 📄 Paper (go-live May 2026) |
 | **Solana Sniper** | Solana memecoins | 🟢 Live |
 | **OSC Scalper** | Established memecoins | 🟢 Live |
 | **StatiqFC** | Football edge alerts | 🟢 Live |
